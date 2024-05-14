@@ -1,10 +1,10 @@
-package com.microshop.stockmanagement.chartservice;
+package com.microshop.stockmanagement.cartservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ChartServiceApplicationTests {
+class CartServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
