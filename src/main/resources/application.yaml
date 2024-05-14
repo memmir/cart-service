@@ -22,6 +22,20 @@ spring:
   config:
     activate:
       on-profile: localhost
+  cloud:
+    config:
+      uri: http://localhost:8890
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        default_schema: stock_management
+  datasource:
+    url: "jdbc:postgresql://localhost:5435/cart"
+    username: postgres
+    password: postgres
 
 feign:
   product-service:
