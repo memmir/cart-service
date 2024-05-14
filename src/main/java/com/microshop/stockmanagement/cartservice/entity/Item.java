@@ -1,6 +1,7 @@
 package com.microshop.stockmanagement.cartservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.microshop.stockmanagement.cartservice.response.ProductResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,13 @@ public class Item {
     @ManyToMany( mappedBy = "item")
     @JsonIgnore
     private List<Order> orders;
+
+
+    public Item(Integer quantity, Product product, BigDecimal subTotalForItem) {
+        this.quantity = quantity;
+        this.product = product;
+        this.subTotal = subTotalForItem;
+    }
 
 
 }
