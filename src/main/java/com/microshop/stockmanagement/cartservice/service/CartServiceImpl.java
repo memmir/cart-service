@@ -73,16 +73,23 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public boolean checkIfItemExists(String cartId, Long productId) {
-        return true;
+        List<Item> cart = (List)cartRedisRepository.getCart(cartId, Item.class);
+        for(Item item: cart){
+            if((item.getProduct().getProductId().equals(productId))){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public List<Item> getAllItemsFromCart(String cartId) {
-        return null;
+        List<Item> items = (List)cartRedisRepository.getCart(cartId, Item.class);
+        return items;
     }
 
     @Override
     public void deleteCart(String cartId) {
-
+        cartRedisRepository.deleteCart(cartId);
     }
 }
