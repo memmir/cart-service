@@ -68,6 +68,24 @@ public class CartController {
                 .build();
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping(value = "/delete/{cartId}", params = {"productId"})
+    public InternalApiResponse<Void> removeItemFromCart(@PathVariable("cartId") String cartId,
+                                                        @RequestParam("productId") Long productId){
+        List<Object> cart = cartService.getCart(cartId);
+        if(cart != null) {
+            cartService.deleteItemFromCart(cartId, productId);
+            return InternalApiResponse.<Void>builder()
+                    .httpStatus(HttpStatus.OK)
+                    .hasError(false)
+                    .build();
+        }
+        return InternalApiResponse.<Void>builder()
+                .httpStatus(HttpStatus.NOT_FOUND)
+                .hasError(true)
+                .build();
+    }
+
 
 
 }
