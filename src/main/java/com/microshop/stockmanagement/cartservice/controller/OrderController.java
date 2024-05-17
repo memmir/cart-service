@@ -34,7 +34,7 @@ public class OrderController {
 
     private CartService cartService;
 
-    @PostMapping(value = "/order/{language}/{userId}/{cartId}")
+    @PostMapping(value = "/create/{language}/{userId}/{cartId}")
     public InternalApiResponse<Order> saveOrder(@PathVariable("userId") Long userId,
                                                 @PathVariable("cartId") String cartId,
                                                 @PathVariable("language")Language language){
@@ -53,7 +53,8 @@ public class OrderController {
 
 
         if(cart != null && user != null){
-            Order order = this.createOrder(cart,user);
+            //Order order = this.createOrder(cart,user);
+            Order order = createOrder(cart,user);
             try{
 
                 orderService.saveOrder(order);
