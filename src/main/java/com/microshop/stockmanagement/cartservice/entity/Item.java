@@ -33,7 +33,7 @@ public class Item {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToMany( mappedBy = "item")
+    @ManyToMany( mappedBy = "items")
     @JsonIgnore
     private List<Order> orders;
 
