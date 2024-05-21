@@ -57,7 +57,7 @@ public class OrderController {
             Order order = createOrder(cart,user);
             try{
 
-                orderService.saveOrder(order);
+                orderService.saveOrder(order, user);
                 cartService.deleteCart(cartId);
 
                 return InternalApiResponse.<Order>builder()
