@@ -1,6 +1,7 @@
 package com.microshop.stockmanagement.cartservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,13 +9,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user", schema = "user_management")
+@Table(name = "user", schema = "stock_management")
 public class User {
 
     @Id
@@ -39,6 +41,10 @@ public class User {
 
     @Column(name = "user_address")
     private String userAddress;
+
+    @OneToMany ( mappedBy = "user")
+    @JsonIgnore
+    private List<Order> orders;
 
     @Builder.Default // bu alanı constructor da default olarak her zaman parametre olarak geçmesini sağlayan annottasyon.
     @Column(name = "user_updated_date")
