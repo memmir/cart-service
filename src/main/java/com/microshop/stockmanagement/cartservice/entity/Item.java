@@ -29,8 +29,8 @@ public class Item {
     @Column(name = "subtotal")
     private BigDecimal subTotal;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "product_id",referencedColumnName = "productId")
     private Product product;
 
     @ManyToMany( mappedBy = "items")
