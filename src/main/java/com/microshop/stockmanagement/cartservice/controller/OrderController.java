@@ -28,11 +28,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private UserServiceFeignClient userServiceFeignClient;
+    private final UserServiceFeignClient userServiceFeignClient;
 
-    private OrderService orderService;
+    private final OrderService orderService;
 
-    private CartService cartService;
+    private final CartService cartService;
 
     @PostMapping(value = "/create/{language}/{userId}/{cartId}")
     public InternalApiResponse<Order> saveOrder(@PathVariable("userId") Long userId,

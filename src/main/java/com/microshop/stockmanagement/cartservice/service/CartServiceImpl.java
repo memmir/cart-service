@@ -32,8 +32,10 @@ public class CartServiceImpl implements CartService {
 
         Product product = new Product();
 
+        product.setProductId(productResponse.getProductId());
         product.setProductName(productResponse.getProductName());
         product.setPrice(productResponse.getPrice());
+        product.setQuantity(quantity);
 
         Item item = new Item(quantity, product, CartUtilities.getSubTotalForItem(product,quantity));
 
