@@ -5,8 +5,11 @@ import com.microshop.stockmanagement.cartservice.entity.Product;
 import com.microshop.stockmanagement.cartservice.enums.Language;
 import com.microshop.stockmanagement.cartservice.feign.product.ProductServiceFeignClient;
 import com.microshop.stockmanagement.cartservice.redis.CartRedisRepository;
+import com.microshop.stockmanagement.cartservice.repository.ItemRepository;
+import com.microshop.stockmanagement.cartservice.repository.ProductRepository;
 import com.microshop.stockmanagement.cartservice.response.ProductResponse;
 import com.microshop.stockmanagement.cartservice.utilities.CartUtilities;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +27,12 @@ public class CartServiceImpl implements CartService {
 
     private final CartRedisRepository cartRedisRepository;
 
+    private final ItemRepository itemRepository;
+
+    private final ProductRepository productRepository;
 
     @Override
+    @Transactional
     public void addItemToCart(String cartId, Long productId, Integer quantity, Language language) {
 
         ProductResponse productResponse = productServiceFeignClient.getProduct(language, productId).getPayload();
@@ -37,9 +44,14 @@ public class CartServiceImpl implements CartService {
         product.setPrice(productResponse.getPrice());
         product.setQuantity(quantity);
 
+        productRepository.save(product);
+
+
         Item item = new Item(quantity, product, CartUtilities.getSubTotalForItem(product,quantity));
 
-        cartRedisRepository.addItemToCart(cartId, item);
+        Item savedItem = itemRepository.save(item);
+
+        cartRedisRepository.addItemToCart(cartId, savedItem);
 
     }
 
