@@ -31,11 +31,11 @@ public class Order {
     @Column(name = "total")
     private BigDecimal total;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "cart", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> items;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id",referencedColumnName = "userId")
     private User user;
 }
