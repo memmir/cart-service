@@ -5,17 +5,17 @@ spring:
     active: localhost
   main:
     allow-bean-definition-overriding: true
-  info:
-    component: Cart Service
+info:
+  component: Cart Service
 
 logging: ##Uygulamadaki logları takip edebilmek için eklenen conf.
   level:
     ##root: debug
     ##root: off
-    com.microshop: debug
+      com.microshop: debug
     ##üstteki şekilde diyerek daha az ve daha az karışık log görebiliriz.
 server:
-  port: 9792
+  port: 4051
 
 ---
 spring:
@@ -46,10 +46,10 @@ spring:
 feign:
   product-service:
     name: product-service
-    url: http://localhost:9788
+    url: http://localhost:4041
   user-service:
     name: user-service
-    url: http://localhost:9789
+    url: http://localhost:4041
 
 eureka:
   instance:
@@ -58,7 +58,7 @@ eureka:
     lease-renewal-interval-in-seconds: 10
   client:
     service-url:
-      default-zone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:4042/eureka/
 
 ---
 spring:
@@ -79,7 +79,7 @@ spring:
       hibernate:
         default_schema: stock_management
   datasource:
-    url: "jdbc:postgresql://postgres:1001/cart"
+    url: "jdbc:postgresql://postgres:5432/cart"
     username: postgres
     password: postgres
     #is bilgisayarında şifre postgres. evdeki bilgisayarda postgre.
@@ -87,17 +87,17 @@ spring:
 feign:
   product-service:
     name: product-service
-    url: http://zuul-edge-server:1002
+    url: http://zuul-edge-server:4041
   user-service:
     name: user-service
-    url: http://zuul-edge-server:1002
+    url: http://zuul-edge-server:4041
 
 
 eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:4042/eureka
   instance:
     instance-id: ${spring.application.name}:${random.uuid}
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 10
-  client:
-    service-url:
-      default-zone: http://eureka-server:1003/eureka/

@@ -24,7 +24,6 @@ public class CartRedisRepositoryImpl implements CartRedisRepository{
 
             String jsonObject = objectMapper.writeValueAsString(item);
             jedis.sadd(key, jsonObject); //Bir sete bir veya daha fazla eleman ekler.
-
         }catch (JsonProcessingException e){
             e.printStackTrace();
         }
